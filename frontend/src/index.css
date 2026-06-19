@@ -1,0 +1,84 @@
+@import "tailwindcss";
+
+/* ── Theme Design Tokens (Tailwind v4 @theme) ── */
+@theme {
+  --color-aviation: #0ea5e9;
+  --color-surface: #ffffff;
+  --color-muted: #6b7280;
+}
+
+/* ── Base Styles ── */
+#root {
+  width: 100%;
+  min-height: 100svh;
+}
+
+/* ── Custom Animations ── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.6; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out;
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 2s ease-in-out infinite;
+}
+
+/* ── Skeleton Loading ── */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 0.5rem;
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Stat Card Hover Effect ── */
+.stat-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1);
+}
+
+/* ── Table Row Hover ── */
+.logbook-row {
+  transition: background-color 0.15s ease;
+}
+.logbook-row .row-actions {
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.logbook-row:hover .row-actions {
+  opacity: 1;
+}
+
+/* ── Primary Button ── */
+.btn-primary {
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+.btn-primary:active {
+  transform: scale(0.98);
+}
