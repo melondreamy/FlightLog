@@ -11,6 +11,13 @@ interface FormState {
   arrival_time: string;
   total_time: string;
   night_time: string;
+  pic_time: string;
+  sic_time: string;
+  dual_received: string;
+  dual_given: string;
+  actual_instrument: string;
+  sim_instrument: string;
+  approaches: string;
   pilot_in_command: string;
   remarks: string;
   landings_day: string;
@@ -19,21 +26,28 @@ interface FormState {
 }
 
 const initialForm = (): FormState => ({
-  date: new Date().toISOString().split("T")[0],
-  aircraft_type: "",
-  aircraft_reg: "",
-  departure: "",
-  arrival: "",
-  departure_time: "",
-  arrival_time: "",
-  total_time: "",
-  night_time: "0",
-  pilot_in_command: "",
-  remarks: "",
-  landings_day: "0",
-  landings_night: "0",
-  cross_country: false,
-});
+      date: new Date().toISOString().split("T")[0],
+      aircraft_type: "",
+      aircraft_reg: "",
+      departure: "",
+      arrival: "",
+      departure_time: "",
+      arrival_time: "",
+      total_time: "",
+      night_time: "0",
+      pic_time: "0",
+      sic_time: "0",
+      dual_received: "0",
+      dual_given: "0",
+      actual_instrument: "0",
+      sim_instrument: "0",
+      approaches: "0",
+      pilot_in_command: "",
+      remarks: "",
+      landings_day: "0",
+      landings_night: "0",
+      cross_country: false,
+    });
 
 export default function EntryForm() {
   const [form, setForm] = useState<FormState>(initialForm());
@@ -92,6 +106,19 @@ export default function EntryForm() {
         arrival_time: form.arrival_time || null,
         total_time: parseFloat(form.total_time),
         night_time: parseFloat(form.night_time) || 0,
+        pic_time: parseFloat(form.pic_time) || 0,
+        sic_time: parseFloat(form.sic_time) || 0,
+        dual_received: parseFloat(form.dual_received) || 0,
+        dual_given: parseFloat(form.dual_given) || 0,
+        actual_instrument: parseFloat(form.actual_instrument) || 0,
+        sim_instrument: parseFloat(form.sim_instrument) || 0,
+        approaches: parseInt(form.approaches) || 0,
+        pilot_in_command: form.pilot_in_command.trim(),
+        remarks: form.remarks || null,
+        landings_day: parseInt(form.landings_day) || 0,
+        landings_night: parseInt(form.landings_night) || 0,
+        cross_country: form.cross_country,
+      });
       setMessage({ type: "success", text: "Flight logged successfully!" });
       setForm(initialForm());
       setErrors({});
