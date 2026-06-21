@@ -121,6 +121,7 @@ class UserResponse(UserBase):
     id: int
     is_admin: bool
     created_at: str
+    settings: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -129,6 +130,17 @@ class UserResponse(UserBase):
 class UserMeResponse(UserResponse):
     show_welcome: bool = True
     setup_complete: bool = False
+
+
+class WelcomeConfig(BaseModel):
+    title: str
+    description: str
+    features: List[str]
+    background_style: str = "default"
+
+
+class PasswordReset(BaseModel):
+    new_password: str = Field(..., min_length=8)
 
 
 class Token(BaseModel):
