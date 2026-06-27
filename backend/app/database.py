@@ -110,6 +110,35 @@ def init_db() -> None:
         if 'custom_fields' not in columns:
             conn.execute("ALTER TABLE flights ADD COLUMN custom_fields TEXT")
 
+        # Create endorsements table
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS endorsements (
+                id                INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id           INTEGER NOT NULL,
+                instructor_id     INTEGER,
+                date              TEXT    NOT NULL,
+                endorsement_type  TEXT    NOT NULL,
+                text              TEXT    NOT NULL,
+                created_at        TEXT    DEFAULT (datetime('now')),
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+                FOREIGN KEY (instructor_id) REFERENCES users(id) ON DELETE SET NULL
+            );
+        """)
+
+        # Create certificates table
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS certificates (
+                id                INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id           INTEGER NOT NULL,
+                certificate_type  TEXT    NOT NULL,
+                rating            TEXT    NOT NULL,
+                date_issued       TEXT    NOT NULL,
+                certificate_number TEXT,
+                created_at        TEXT    DEFAULT (datetime('now')),
+                FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+            );
+        """)
+
         conn.commit()
     finally:
         conn.close()

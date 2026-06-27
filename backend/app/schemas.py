@@ -155,3 +155,48 @@ class TokenData(BaseModel):
 class LoginRequest(BaseModel):
     username: str
     password: str
+
+
+# Endorsement Schemas
+
+class EndorsementBase(BaseModel):
+    date: date
+    endorsement_type: str = Field(..., min_length=1, max_length=100)
+    text: str = Field(..., min_length=1)
+    instructor_id: Optional[int] = None
+
+
+class EndorsementCreate(EndorsementBase):
+    user_id: int
+
+
+class EndorsementResponse(EndorsementBase):
+    id: int
+    user_id: int
+    created_at: str
+
+    class Config:
+        from_attributes = True
+
+
+# Certificate Schemas
+
+class CertificateBase(BaseModel):
+    certificate_type: str = Field(..., min_length=1, max_length=100)
+    rating: str = Field(..., min_length=1, max_length=100)
+    date_issued: date
+    certificate_number: Optional[str] = None
+
+
+class CertificateCreate(CertificateBase):
+    pass
+
+
+class CertificateResponse(CertificateBase):
+    id: int
+    user_id: int
+    date_issued: str
+    created_at: str
+
+    class Config:
+        from_attributes = True
