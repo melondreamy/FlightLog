@@ -1,4 +1,4 @@
-# SkyLog
+# FLightLog
 
 A privacy-first, self-hosted digital flight logbook for pilots.
 
